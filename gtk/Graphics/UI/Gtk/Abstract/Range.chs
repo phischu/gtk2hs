@@ -51,10 +51,8 @@ module Graphics.UI.Gtk.Abstract.Range (
 -- * Methods
   rangeGetAdjustment,
   rangeSetAdjustment,
-#if GTK_MAJOR_VERSION < 3
   rangeGetUpdatePolicy,
   rangeSetUpdatePolicy,
-#endif
   rangeGetInverted,
   rangeSetInverted,
   rangeGetValue,
@@ -79,9 +77,7 @@ module Graphics.UI.Gtk.Abstract.Range (
 #endif
 
 -- * Attributes
-#if GTK_MAJOR_VERSION < 3
   rangeUpdatePolicy,
-#endif
   rangeAdjustment,
   rangeInverted,
 #if GTK_CHECK_VERSION(2,10,0)
@@ -125,9 +121,7 @@ import Graphics.UI.Gtk.Abstract.Object	(makeNewObject)
 {#import Graphics.UI.Gtk.Types#}
 {#import Graphics.UI.Gtk.Signals#}
 import Graphics.UI.Gtk.General.Enums	(ScrollType(..))
-#if GTK_MAJOR_VERSION < 3
 import Graphics.UI.Gtk.General.Enums	(UpdateType(..))
-#endif
 import Graphics.UI.Gtk.General.Structs	(Rectangle(..))
 
 {# context lib="gtk" prefix="gtk" #}
@@ -161,10 +155,7 @@ rangeSetAdjustment self adjustment =
     (toRange self)
     adjustment
 
-#if GTK_MAJOR_VERSION < 3
 -- | Gets the update policy of @range@. See 'rangeSetUpdatePolicy'.
---
--- Removed in Gtk3.
 rangeGetUpdatePolicy :: RangeClass self => self
  -> IO UpdateType -- ^ returns the current update policy
 rangeGetUpdatePolicy self =
@@ -180,8 +171,6 @@ rangeGetUpdatePolicy self =
 -- updates are spaced by a short time rather than continuous.
 -- 'UpdateDiscontinuous' means that the value will only be updated when the
 -- user releases the button and ends the slider drag operation.
---
--- Removed in Gtk3.
 rangeSetUpdatePolicy :: RangeClass self => self
  -> UpdateType -- ^ @policy@ - update policy
  -> IO ()
@@ -189,7 +178,6 @@ rangeSetUpdatePolicy self policy =
   {# call range_set_update_policy #}
     (toRange self)
     ((fromIntegral . fromEnum) policy)
-#endif
 
 -- | Gets the value set by 'rangeSetInverted'.
 --
@@ -409,17 +397,13 @@ rangeSetSliderSizeFixed self sizeFixed =
 --------------------
 -- Attributes
 
-#if GTK_MAJOR_VERSION < 3
 -- | How the range should be updated on the screen.
 --
 -- Default value: 'UpdateContinuous'
--- 
--- Removed in Gtk3.
 rangeUpdatePolicy :: RangeClass self => Attr self UpdateType
 rangeUpdatePolicy = newAttr
   rangeGetUpdatePolicy
   rangeSetUpdatePolicy
-#endif
 
 -- | The 'Adjustment' that contains the current value of this range object.
 --

@@ -59,11 +59,9 @@ module Graphics.UI.Gtk.Entry.Entry (
 -- * Methods
   entrySetText,
   entryGetText,
-#if GTK_MAJOR_VERSION < 3
 #ifndef DISABLE_DEPRECATED
   entryAppendText,
   entryPrependText,
-#endif
 #endif
   entrySetVisibility,
   entryGetVisibility,
@@ -87,11 +85,9 @@ module Graphics.UI.Gtk.Entry.Entry (
   entryGetBuffer,
   entrySetBuffer,
 #endif
-#if GTK_MAJOR_VERSION < 3
 #if GTK_CHECK_VERSION(2,20,0)
   entryGetIconWindow,
   entryGetTextWindow,
-#endif
 #endif
 #if GTK_CHECK_VERSION(2,22,0)
   entryImContextFilterKeypress,
@@ -249,14 +245,11 @@ entryGetText self =
   {# call entry_get_text #}
     (toEntry self)
   >>= peekUTFString
-#if GTK_MAJOR_VERSION < 3
 #ifndef DISABLE_DEPRECATED
 -- | Appends the given text to the contents of the widget.
 --
 -- * Warning: this function is deprecated and should not be used in
 -- newly-written code.
---
--- Removed in Gtk3.
 entryAppendText :: EntryClass self => self -> String -> IO ()
 entryAppendText self text =
   withUTFString text $ \textPtr ->
@@ -268,15 +261,12 @@ entryAppendText self text =
 --
 -- * Warning: this function is deprecated and should not be used in
 -- newly-written code.
---
--- Removed in Gtk3.
 entryPrependText :: EntryClass self => self -> String -> IO ()
 entryPrependText self text =
   withUTFString text $ \textPtr ->
   {# call entry_prepend_text #}
     (toEntry self)
     textPtr
-#endif
 #endif
 
 -- | Sets whether the contents of the entry are visible or not. When
@@ -482,14 +472,12 @@ entryGetCompletion self =
     (toEntry self)
 #endif
 
-#if GTK_MAJOR_VERSION < 3
 #if GTK_CHECK_VERSION(2,20,0)
 -- | Returns the 'Window' which contains the entry's icon at @iconPos@. This function is useful when
 -- drawing something to the entry in an 'eventExpose' callback because it enables the callback to
 -- distinguish between the text window and entry's icon windows.
 -- 
 -- See also 'entryGetTextWindow'.
--- Removed in Gtk3.
 entryGetIconWindow :: EntryClass self => self
                    -> EntryIconPosition  -- ^ @iconPos@ Icon position                        
                    -> IO DrawWindow -- ^ returns  the entry's icon window at @iconPos@. 
@@ -504,14 +492,12 @@ entryGetIconWindow entry iconPos =
 -- window and entry's icon windows.
 -- 
 -- See also 'entryGetIconWindow'.
--- Removed in Gtk3.
 entryGetTextWindow :: EntryClass self => self
                    -> IO DrawWindow  -- ^ returns the entry's text window. 
 entryGetTextWindow entry =
     makeNewGObject mkDrawWindow $
     {#call gtk_entry_get_text_window #}
       (toEntry entry)
-#endif
 #endif
 
 #if GTK_CHECK_VERSION(2,22,0)

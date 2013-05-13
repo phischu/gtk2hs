@@ -139,9 +139,7 @@ module Graphics.UI.Gtk.Gdk.EventM (
   eventRequestMotions,
 #endif
   eventArea,
-#if GTK_MAJOR_VERSION < 3
   eventRegion,
-#endif
   VisibilityState(..),
   eventVisibilityState,
   CrossingMode(..),
@@ -181,9 +179,7 @@ import System.Glib.FFI
 import System.Glib.Flags
 import System.Glib.GObject ( makeNewGObject )
 import Graphics.UI.Gtk.Gdk.Keys		(KeyVal, KeyCode, keyName)
-#if GTK_MAJOR_VERSION < 3
 import Graphics.UI.Gtk.Gdk.Region       (Region, makeNewRegion)
-#endif
 import Graphics.UI.Gtk.Gdk.Enums	(Modifier(..), VisibilityState(..),
   CrossingMode(..), NotifyType(..), WindowState(..), ScrollDirection(..),
 #if GTK_CHECK_VERSION(2,6,0)
@@ -541,9 +537,7 @@ eventArea :: EventM EExpose Rectangle
 eventArea = ask >>= \ptr -> liftIO $
   (#{peek GdkEventExpose, area} ptr :: IO Rectangle)
 
-#if GTK_MAJOR_VERSION < 3
 -- | Query the region that needs to be updated.
--- Removed in Gtk3.
 eventRegion :: EventM EExpose Region
 eventRegion = ask >>= \ptr -> liftIO $ do
   (reg_   :: Ptr Region)	<- #{peek GdkEventExpose, region} ptr
@@ -552,7 +546,6 @@ eventRegion = ask >>= \ptr -> liftIO $ do
 
 foreign import ccall "gdk_region_copy"
   gdk_region_copy :: Ptr Region -> IO (Ptr Region)
-#endif
 
 -- | Get the visibility status of a window.
 eventVisibilityState :: EventM EVisibility VisibilityState

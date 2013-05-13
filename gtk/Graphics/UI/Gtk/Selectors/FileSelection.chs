@@ -26,8 +26,6 @@
 -- Prompt the user for a file or directory name
 --
 -- * As of Gtk+ 2.4 this module has been deprecated in favour of 'FileChooser'
---
--- This module is empty in Gtk3.
 module Graphics.UI.Gtk.Selectors.FileSelection (
 -- * Detail
 -- 
@@ -65,7 +63,6 @@ module Graphics.UI.Gtk.Selectors.FileSelection (
 -- |                                 +----'Dialog'
 -- |                                       +----FileSelection
 -- @
-#if GTK_MAJOR_VERSION < 3
 -- * Types
   FileSelection,
   FileSelectionClass,
@@ -90,9 +87,7 @@ module Graphics.UI.Gtk.Selectors.FileSelection (
   fileSelectionFilename,
   fileSelectionShowFileops,
   fileSelectionSelectMultiple,
-#endif
   ) where
-#if GTK_MAJOR_VERSION < 3
 import Control.Monad            (liftM)
 
 import System.Glib.FFI
@@ -264,4 +259,3 @@ fileSelectionSelectMultiple :: FileSelectionClass self => Attr self Bool
 fileSelectionSelectMultiple = newAttr
   fileSelectionGetSelectMultiple
   fileSelectionSetSelectMultiple
-#endif

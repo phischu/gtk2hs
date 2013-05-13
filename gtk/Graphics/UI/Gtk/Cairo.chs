@@ -50,12 +50,8 @@ module Graphics.UI.Gtk.Cairo (
   cairoContextSetFontOptions,
   cairoContextGetFontOptions,
   -- * Functions for the 'Render' monad.
-#if GTK_MAJOR_VERSION < 3
   renderWithDrawable,
   region,
-#else
-  renderWithDrawWindow,
-#endif
   setSourceColor,
   setSourcePixbuf,
   updateContext,
@@ -74,11 +70,7 @@ import Control.Exception    (bracket)
 
 import System.Glib.FFI
 {#import Graphics.UI.Gtk.Types#}
-#if GTK_MAJOR_VERSION < 3
 {#import Graphics.UI.Gtk.Gdk.Region#} (Region(..))
-#else
-{#import Graphics.UI.Gtk.Gdk.Region#} ()
-#endif
 {#import Graphics.Rendering.Pango.Cairo#}
 
 #if GTK_CHECK_VERSION(2,8,0)
@@ -96,10 +88,7 @@ import Graphics.UI.Gtk.General.Structs (Rectangle(..))
 -- Methods
 
 #if GTK_CHECK_VERSION(2,8,0)
-#if GTK_MAJOR_VERSION < 3
 -- | Creates a Cairo context for drawing to a 'Drawable'.
---
--- Removed in Gtk3.
 renderWithDrawable :: DrawableClass drawable =>
     drawable -- ^ @drawable@ - a 'Drawable'
  -> Render a -- ^ A newly created Cairo context.
@@ -111,22 +100,6 @@ renderWithDrawable drawable m =
                           unless (status == Cairo.StatusSuccess) $
                             fail =<< Cairo.Internal.statusToString status)
           (\context -> runReaderT (Cairo.Internal.runRender m) context)
-#endif
-
-#if GTK_MAJOR_VERSION >= 3
--- | Creates a Cairo context for drawing to a 'DrawWindow'.
-renderWithDrawWindow :: DrawWindowClass drawWindow =>
-    drawWindow -- ^ @drawWindow@ - a 'DrawWindow'
- -> Render a -- ^ A newly created Cairo context.
- -> IO a
-renderWithDrawWindow drawWindow m =
-  bracket (liftM Cairo.Cairo $ {#call unsafe gdk_cairo_create#} (toDrawWindow drawWindow))
-          (\context -> do status <- Cairo.Internal.status context
-                          Cairo.Internal.destroy context
-                          unless (status == Cairo.StatusSuccess) $
-                            fail =<< Cairo.Internal.statusToString status)
-          (\context -> runReaderT (Cairo.Internal.runRender m) context)
-#endif
 
 -- | Sets the given pixbuf as the source pattern for the Cairo context. The
 -- pattern has an extend mode of 'ExtendNone' and is aligned so that the
@@ -154,16 +127,12 @@ rectangle rect = Render $ do
       cr
       (castPtr rectPtr)
 
-#if GTK_MAJOR_VERSION < 3
 -- | Adds the given region to the current path of the 'Render' context.
---
--- Removed in Gtk3.
 region :: Region -> Render ()
 region region = Render $ do
   cr <- ask
   liftIO $ {# call unsafe gdk_cairo_region #}
     cr
     region
-#endif
 
 #endif

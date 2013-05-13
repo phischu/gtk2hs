@@ -61,10 +61,8 @@ module Graphics.UI.Gtk.General.Style (
   styleGetBase,
   styleGetAntiAliasing,
 
-#if GTK_MAJOR_VERSION < 3
   stylePaintFlatBox,
   stylePaintLayout,
-#endif
 
   ) where
 
@@ -86,7 +84,6 @@ import Graphics.UI.Gtk.General.Structs		(styleGetForeground,
                          Rectangle)
 import Graphics.UI.Gtk.General.Enums (StateType, ShadowType)
 
-#if GTK_MAJOR_VERSION < 3
 stylePaintFlatBox :: WidgetClass widget
                   => Style
                   -> DrawWindow
@@ -137,4 +134,3 @@ stylePaintLayout style window stateType useText
     detailPtr
     (fromIntegral x) (fromIntegral y)
     layout
-#endif

@@ -123,10 +123,8 @@ module Graphics.UI.Gtk.Display.Image (
 
 -- * Attributes
   imagePixbuf,
-#if GTK_MAJOR_VERSION < 3
   imagePixmap,
   imageMask,
-#endif
   imageAnimation,
   imageImage,
   imageFile,
@@ -190,7 +188,7 @@ imageNewFromFile filename =
   makeNewObject mkImage $
   liftM (castPtr :: Ptr Widget -> Ptr Image) $
   withUTFString filename $ \filenamePtr ->
-#if defined (WIN32) && GTK_CHECK_VERSION(2,6,0) && GTK_MAJOR_VERSION < 3
+#if defined (WIN32) && GTK_CHECK_VERSION(2,6,0)
   {# call unsafe gtk_image_new_from_file_utf8 #}
 #else
   {# call unsafe gtk_image_new_from_file #}
@@ -293,7 +291,7 @@ imageSetFromAnimation self pba =
 imageSetFromFile :: Image -> FilePath -> IO ()
 imageSetFromFile self filename =
   withUTFString filename $ \filenamePtr ->
-#if defined (WIN32) && GTK_CHECK_VERSION(2,6,0) && GTK_MAJOR_VERSION < 3
+#if defined (WIN32) && GTK_CHECK_VERSION(2,6,0)
   {# call gtk_image_set_from_file_utf8 #}
 #else
   {# call gtk_image_set_from_file #}
@@ -380,7 +378,6 @@ imageAnimation :: (PixbufClass pixbuf, PixbufAnimationClass animation)  => ReadW
 imageAnimation = newAttrFromObjectProperty "pixbuf-animation"
   {# call pure unsafe gdk_pixbuf_get_type #}
 
-#if GTK_MAJOR_VERSION < 3
 -- | A 'Pixmap' to display.
 --
 imagePixmap :: PixmapClass pixmap => ReadWriteAttr Image Pixmap pixmap
@@ -392,7 +389,6 @@ imagePixmap = newAttrFromObjectProperty "pixmap"
 imageMask :: PixmapClass pixmap => ReadWriteAttr Image Pixmap pixmap
 imageMask = newAttrFromObjectProperty "mask"
   {# call pure unsafe gdk_pixmap_get_type #}
-#endif
 
 -- | A 'Image' to display.
 --

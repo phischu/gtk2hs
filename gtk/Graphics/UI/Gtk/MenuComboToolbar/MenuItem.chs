@@ -109,7 +109,6 @@ module Graphics.UI.Gtk.MenuComboToolbar.MenuItem (
   menuItemDeselect,
   menuItemToggle,
 
-#if GTK_MAJOR_VERSION < 3
 #ifndef DISABLE_DEPRECATED
 -- * Deprecated
   onActivateItem,
@@ -122,7 +121,6 @@ module Graphics.UI.Gtk.MenuComboToolbar.MenuItem (
   afterDeselect,
   onToggle,
   afterToggle
-#endif
 #endif
   ) where
 
@@ -380,7 +378,6 @@ menuItemDeselect = Signal (connect_NONE__NONE "deselect")
 menuItemToggle :: MenuItemClass i => Signal i (IO ())
 menuItemToggle = Signal (connect_NONE__NONE "toggle")
 
-#if GTK_MAJOR_VERSION < 3
 #ifndef DISABLE_DEPRECATED
 --------------------
 -- Deprecated Signals
@@ -414,5 +411,4 @@ onToggle, afterToggle :: ItemClass i => i
  -> IO (ConnectId i)
 onToggle = connect_NONE__NONE "toggle" False
 afterToggle = connect_NONE__NONE "toggle" True
-#endif
 #endif

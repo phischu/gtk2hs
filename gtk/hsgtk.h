@@ -3,10 +3,6 @@
 #undef gtk_init_check
 #undef gtk_init
 
-#if GTK_MAJOR_VERSION >= 3
-#include <gtk/gtkx.h>
-#endif
-
 #undef Bool
 #undef True
 #undef False

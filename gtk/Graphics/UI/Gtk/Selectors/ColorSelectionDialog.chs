@@ -55,12 +55,10 @@ module Graphics.UI.Gtk.Selectors.ColorSelectionDialog (
   colorSelectionDialogNew,
 
 -- * Methods
-#if GTK_MAJOR_VERSION < 3
   colorSelectionDialogGetColor,
   colorSelectionDialogGetOkButton,
   colorSelectionDialogGetCancelButton,
   colorSelectionDialogGetHelpButton,
-#endif
   ) where
 
 import Control.Monad	(liftM)
@@ -69,12 +67,10 @@ import System.Glib.FFI
 import System.Glib.UTFString
 import Graphics.UI.Gtk.Abstract.Object	(makeNewObject)
 {#import Graphics.UI.Gtk.Types#}
-#if GTK_MAJOR_VERSION < 3
 import Graphics.UI.Gtk.General.Structs	(colorSelectionDialogGetColor,
 					colorSelectionDialogGetOkButton,
 					colorSelectionDialogGetCancelButton,
 					colorSelectionDialogGetHelpButton)
-#endif
 
 {# context lib="gtk" prefix="gtk" #}
 

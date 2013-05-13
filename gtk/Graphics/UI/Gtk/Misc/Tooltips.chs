@@ -53,8 +53,6 @@ module Graphics.UI.Gtk.Misc.Tooltips (
 --
 -- Information about the tooltip (if any) associated with an arbitrary
 -- widget can be retrieved using 'tooltipsDataGet'.
---
--- * This module is deprecated. It is empty in Gtk3.
 
 -- * Class Hierarchy
 -- |
@@ -63,7 +61,6 @@ module Graphics.UI.Gtk.Misc.Tooltips (
 -- |   +----'Object'
 -- |         +----Tooltips
 -- @
-#if GTK_MAJOR_VERSION < 3
 -- * Types
   Tooltips,
   TooltipsClass,
@@ -81,10 +78,8 @@ module Graphics.UI.Gtk.Misc.Tooltips (
 #endif
   tooltipsSetTip,
   tooltipsDataGet
-#endif
   ) where
 
-#if GTK_MAJOR_VERSION < 3
 import System.Glib.FFI
 import System.Glib.UTFString
 import Graphics.UI.Gtk.Abstract.Object  (makeNewObject)
@@ -171,4 +166,3 @@ tooltipsDataGet w = do
            tipPrivate <- {#get TooltipsData->tip_private#} tipDataPtr
                      >>= peekUTFString
            return $ Just $ (tooltips, tipText, tipPrivate)
-#endif

@@ -67,9 +67,7 @@ module Graphics.UI.Gtk.Windows.OffscreenWindow (
   offscreenWindowNew,
 
 -- * Methods
-#if GTK_MAJOR_VERSION < 3
   offscreenWindowGetPixmap,
-#endif
   offscreenWindowGetPixbuf,
 #endif
 ) where
@@ -97,7 +95,6 @@ offscreenWindowNew =
   liftM (castPtr :: Ptr Widget -> Ptr OffscreenWindow) $
   {#call gtk_offscreen_window_new #}
 
-#if GTK_MAJOR_VERSION < 3
 -- | Retrieves a snapshot of the contained widget in the form of a 'Pixmap'. If you need to keep this
 -- around over window resizes then you should add a reference to it.
 --
@@ -110,7 +107,6 @@ offscreenWindowGetPixmap offscreen =
   maybeNull (makeNewGObject mkPixmap) $
   {#call gtk_offscreen_window_get_pixmap #}
      (toOffscreenWindow offscreen)
-#endif
 
 -- | Retrieves a snapshot of the contained widget in the form of a 'Pixbuf'.
 --

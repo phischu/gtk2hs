@@ -100,10 +100,8 @@ module Graphics.UI.Gtk.ActionMenuToolbar.Action (
   actionActivate,
   actionCreateMenuItem,
   actionCreateToolItem,
-#if GTK_MAJOR_VERSION < 3
   actionConnectProxy,
   actionDisconnectProxy,
-#endif
   actionGetProxies,
   actionConnectAccelerator,
   actionDisconnectAccelerator,
@@ -302,7 +300,6 @@ actionCreateToolItem self =
   {# call gtk_action_create_tool_item #}
     (toAction self)
     
-#if GTK_MAJOR_VERSION < 3
 -- | Connects a widget to an action object as a proxy. Synchronises various
 -- properties of the action with the widget (such as label text, icon, tooltip,
 -- etc), and attaches a callback so that the action gets activated when the
@@ -310,8 +307,6 @@ actionCreateToolItem self =
 --
 -- If the widget is already connected to an action, it is disconnected
 -- first.
---
--- Removed in Gtk3.
 actionConnectProxy :: (ActionClass self, WidgetClass proxy) => self
  -> proxy -- ^ @proxy@ - the proxy widget
  -> IO ()
@@ -321,8 +316,6 @@ actionConnectProxy self proxy =
     (toWidget proxy)
 
 -- | Disconnects a proxy widget from an action.
---
--- Removed in Gtk3.
 actionDisconnectProxy :: (ActionClass self, WidgetClass proxy) => self
  -> proxy -- ^ @proxy@ - the proxy widget
  -> IO ()
@@ -330,7 +323,6 @@ actionDisconnectProxy self proxy =
   {# call gtk_action_disconnect_proxy #}
     (toAction self)
     (toWidget proxy)
-#endif
 
 -- | Returns the proxy widgets for an action.
 --

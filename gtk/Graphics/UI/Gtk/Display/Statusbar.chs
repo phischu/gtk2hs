@@ -83,10 +83,8 @@ module Graphics.UI.Gtk.Display.Statusbar (
   statusbarPush,
   statusbarPop,
   statusbarRemove,
-#if GTK_MAJOR_VERSION < 3
   statusbarSetHasResizeGrip,
   statusbarGetHasResizeGrip,
-#endif
 #if GTK_CHECK_VERSION(2,20,0)
   statusbarGetMessageArea,
 #endif
@@ -95,9 +93,7 @@ module Graphics.UI.Gtk.Display.Statusbar (
 #endif
 
 -- * Attributes
-#if GTK_MAJOR_VERSION < 3
   statusbarHasResizeGrip,
-#endif
 
 -- * Signals
   textPopped,
@@ -197,7 +193,6 @@ statusbarRemove self contextId (MessageId messageId) =
     contextId
     messageId
 
-#if GTK_MAJOR_VERSION < 3
 -- | Sets whether the statusbar has a resize grip. @True@ by default.
 --
 statusbarSetHasResizeGrip :: StatusbarClass self => self -> Bool -> IO ()
@@ -213,7 +208,6 @@ statusbarGetHasResizeGrip self =
   liftM toBool $
   {# call unsafe statusbar_get_has_resize_grip #}
     (toStatusbar self)
-#endif
 
 #if GTK_CHECK_VERSION(2,20,0)
 -- | Retrieves the box containing the label widget.
@@ -243,17 +237,13 @@ statusbarRemoveAll self contextId =
 --------------------
 -- Attributes
 
-#if GTK_MAJOR_VERSION < 3
 -- | Whether the statusbar has a grip for resizing the toplevel window.
 --
 -- Default value: @True@
---
--- Removed in Gtk3.
 statusbarHasResizeGrip :: StatusbarClass self => Attr self Bool
 statusbarHasResizeGrip = newAttr
   statusbarGetHasResizeGrip
   statusbarSetHasResizeGrip
-#endif
 
 --------------------
 -- Signals

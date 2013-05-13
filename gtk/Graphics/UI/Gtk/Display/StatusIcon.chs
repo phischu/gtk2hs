@@ -86,15 +86,11 @@ module Graphics.UI.Gtk.Display.StatusIcon (
   statusIconGetStock,
   statusIconGetIconName,
   statusIconGetSize,
-#if GTK_MAJOR_VERSION < 3
   statusIconSetTooltip,
-#endif
   statusIconSetVisible,
   statusIconGetVisible,
-#if GTK_MAJOR_VERSION < 3
   statusIconSetBlinking,
   statusIconGetBlinking,
-#endif
   statusIconIsEmbedded,
   statusIconPositionMenu,
   statusIconGetGeometry,
@@ -109,9 +105,7 @@ module Graphics.UI.Gtk.Display.StatusIcon (
   statusIconIconName,
   statusIconStorageType,
   statusIconSize,
-#if GTK_MAJOR_VERSION < 3
   statusIconBlinking,
-#endif
   statusIconVisible,
 
 -- * Signals
@@ -344,11 +338,8 @@ statusIconGetSize self =
   {# call gtk_status_icon_get_size #}
     (toStatusIcon self)
 
-#if GTK_MAJOR_VERSION < 3
 -- %hash c:7644 d:d87b
 -- | Sets the tooltip of the status icon.
---
--- Removed in Gtk3.
 statusIconSetTooltip :: StatusIconClass self => self
  -> String -- ^ @tooltipText@ - the tooltip text
  -> IO ()
@@ -357,7 +348,6 @@ statusIconSetTooltip self tooltipText =
   {# call gtk_status_icon_set_tooltip #}
     (toStatusIcon self)
     tooltipTextPtr
-#endif
 
 -- %hash c:7bd8 d:74fd
 -- | Shows or hides a status icon.
@@ -382,13 +372,10 @@ statusIconGetVisible self =
   {# call gtk_status_icon_get_visible #}
     (toStatusIcon self)
 
-#if GTK_MAJOR_VERSION < 3
 -- %hash c:aa47 d:3980
 -- | Makes the status icon start or stop blinking. Note that blinking user
 -- interface elements may be problematic for some users, and thus may be turned
 -- off, in which case this setting has no effect.
---
--- Removed in Gtk3.
 statusIconSetBlinking :: StatusIconClass self => self
  -> Bool -- ^ @blinking@ - @True@ to turn blinking on, @False@ to turn it off
  -> IO ()
@@ -399,15 +386,12 @@ statusIconSetBlinking self blinking =
 
 -- %hash c:2168 d:3189
 -- | Returns whether the icon is blinking, see 'statusIconSetBlinking'.
---
--- Removed in Gtk3.
 statusIconGetBlinking :: StatusIconClass self => self
  -> IO Bool -- ^ returns @True@ if the icon is blinking
 statusIconGetBlinking self =
   liftM toBool $
   {# call gtk_status_icon_get_blinking #}
     (toStatusIcon self)
-#endif
 
 -- %hash c:ffa d:8c83
 -- | Returns whether the status icon is embedded in a notification area.
@@ -536,16 +520,12 @@ statusIconStorageType = readAttrFromEnumProperty "storage-type"
 statusIconSize :: StatusIconClass self => ReadAttr self Int
 statusIconSize = readAttrFromIntProperty "size"
 
-#if GTK_MAJOR_VERSION < 3
 -- %hash c:eb d:655d
 -- | Whether or not the status icon is blinking.
 --
 -- Default value: @False@
---
--- Removed in Gtk3.
 statusIconBlinking :: StatusIconClass self => Attr self Bool
 statusIconBlinking = newAttrFromBoolProperty "blinking"
-#endif
 
 -- %hash c:4e2b d:7712
 -- | Whether or not the status icon is visible.

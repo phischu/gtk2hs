@@ -42,7 +42,6 @@ module Graphics.UI.Gtk.Gdk.Enums (
 #if GTK_CHECK_VERSION(2,6,0)
   OwnerChange(..),
 #endif
-#if GTK_MAJOR_VERSION < 3
   ExtensionMode(..),
   CapStyle(..),
   Dither(..),
@@ -52,19 +51,14 @@ module Graphics.UI.Gtk.Gdk.Enums (
   JoinStyle(..),
   LineStyle(..),
   SubwindowMode(..),
-#endif
   ) where
 
 import System.Glib.Flags	(Flags)
 
 {#context lib="gdk" prefix ="gdk"#}
 
-#if GTK_MAJOR_VERSION < 3
 -- | Specify the how the ends of a line is drawn.
---
--- Removed in Gtk3.
 {#enum CapStyle {underscoreToCase} deriving(Eq,Show)#}
-#endif
 
 -- | How focus is crossing the widget.
 --
@@ -96,12 +90,8 @@ import System.Glib.Flags	(Flags)
 
 instance Flags DragAction
 
-#if GTK_MAJOR_VERSION < 3
 -- | Specify how to dither colors onto the screen.
---
--- Removed in Gtk3.
 {#enum RgbDither as Dither {underscoreToCase} deriving(Eq,Show) #}
-#endif
 
 -- | Specify which events a widget will emit signals on.
 --
@@ -166,7 +156,6 @@ instance Flags EventMask
 
 instance Flags Modifier
 
-#if GTK_MAJOR_VERSION < 3
 -- | specify which input extension a widget desires
 --
 {#enum ExtensionMode {underscoreToCase} deriving(Eq,Bounded,Show)#}
@@ -174,33 +163,22 @@ instance Flags Modifier
 instance Flags ExtensionMode
 
 -- | How objects are filled.
---
--- Removed in Gtk3.
 {#enum Fill {underscoreToCase} deriving(Eq,Show) #}
 
 -- | Determine how bitmap operations are carried out.
---
--- Removed in Gtk3.
 {#enum Function {underscoreToCase} deriving(Eq,Show) #}
 
 -- | Specify on what file condition a callback should be
 -- done.
---
--- Removed in Gtk3.
 {#enum InputCondition {underscoreToCase} deriving(Eq,Bounded) #}
 
 instance Flags InputCondition
 
 -- | Determines how adjacent line ends are drawn.
---
--- Removed in Gtk3.
 {#enum JoinStyle {underscoreToCase} deriving(Eq,Show)#}
 
 -- | Determines if a line is solid or dashed.
---
--- Removed in Gtk3.
 {#enum LineStyle {underscoreToCase} deriving(Eq,Show)#}
-#endif
 -- | Information on from what level of the widget hierarchy the mouse
 --   cursor came.
 --
@@ -230,12 +208,8 @@ instance Flags InputCondition
 {#enum ScrollDirection {underscoreToCase} deriving(Eq,Show) #}
 
 
-#if GTK_MAJOR_VERSION < 3
 -- | Determine if child widget may be overdrawn.
---
--- Removed in Gtk3.
 {#enum SubwindowMode {underscoreToCase} deriving(Eq,Show) #}
-#endif
 
 -- | visibility of a window
 --

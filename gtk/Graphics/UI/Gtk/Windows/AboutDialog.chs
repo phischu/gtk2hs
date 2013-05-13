@@ -80,10 +80,8 @@ module Graphics.UI.Gtk.Windows.AboutDialog (
   aboutDialogNew,
 
 -- * Methods
-#if GTK_MAJOR_VERSION < 3
   aboutDialogSetEmailHook,
   aboutDialogSetUrlHook,
-#endif
 
 -- * Attributes
   aboutDialogProgramName,
@@ -433,11 +431,8 @@ aboutDialogSetLogoIconName self iconName =
     (toAboutDialog self)
     iconNamePtr
 
-#if GTK_MAJOR_VERSION < 3
 -- | Installs a global function to be called whenever the user activates an
 -- email link in an about dialog.
---
--- Removed in Gtk3.
 aboutDialogSetEmailHook :: 
     (String -> IO ()) -- ^ @(\url -> ...)@ - a function to call when an email
                       -- link is activated.
@@ -455,8 +450,6 @@ aboutDialogSetEmailHook func = do
 
 -- | Installs a global function to be called whenever the user activates a URL
 -- link in an about dialog.
---
--- Removed in Gtk3.
 aboutDialogSetUrlHook :: 
     (String -> IO ()) -- ^ @(\url -> ...)@ - a function to call when a URL link
                       -- is activated.
@@ -476,7 +469,6 @@ aboutDialogSetUrlHook func = do
 
 foreign import ccall "wrapper" mkAboutDialogActivateLinkFunc ::
   (Ptr AboutDialog -> CString -> Ptr () -> IO ()) -> IO AboutDialogActivateLinkFunc
-#endif
 
 #if GTK_CHECK_VERSION(2,8,0)
 -- | Returns whether the license text in @about@ is automatically wrapped.

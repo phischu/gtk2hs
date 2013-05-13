@@ -198,11 +198,6 @@ socketGetPlugWindow self =
   {# call gtk_socket_get_plug_window #}
     (toSocket self)
 
-#if GTK_MAJOR_VERSION >= 3
-socketHasPlug :: SocketClass s => s -> IO Bool
-socketHasPlug = liftM isJust . socketGetPlugWindow
-#endif
-
 #endif
 
 --------------------

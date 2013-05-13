@@ -33,11 +33,7 @@
 --
 -- This module defines drawing primitives that can operate on 'DrawWindow's
 -- and 'Pixmap's.
---
--- This module is empty when built with Gtk3 because GTKDrawable has been
--- removed.
 module Graphics.UI.Gtk.Gdk.Drawable (
-#if GTK_MAJOR_VERSION < 3
   Drawable,
   DrawableClass,
   castToDrawable, gTypeDrawable,
@@ -66,10 +62,8 @@ module Graphics.UI.Gtk.Gdk.Drawable (
   drawLayout,
   drawLayoutWithColors,
   drawDrawable,
-#endif
 ) where
 
-#if GTK_MAJOR_VERSION < 3
 import Control.Monad	(liftM)
 
 import System.Glib.FFI
@@ -383,4 +377,3 @@ drawDrawable dest gc src xSrc ySrc xDest yDest width height =
   (fromIntegral xSrc) (fromIntegral ySrc) (fromIntegral xDest)
   (fromIntegral yDest) (fromIntegral width) (fromIntegral height)
 
-#endif /* GTK_MAJOR_VERSION < 3 */

@@ -60,9 +60,7 @@ module Graphics.UI.Gtk.ModelView.CellView (
   cellViewSetModel,
   cellViewGetSizeOfRow,
   cellViewSetBackgroundColor,
-#if GTK_MAJOR_VERSION < 3
   cellViewGetCellRenderers,
-#endif
 
 -- * Attributes
   cellViewBackground
@@ -174,17 +172,13 @@ cellViewSetBackgroundColor self color =
     (toCellView self)
     (castPtr colorPtr)
 
-#if GTK_MAJOR_VERSION < 3
 -- | Returns the cell renderers which have been added to @cellView@.
---
--- Removed in Gtk3.
 cellViewGetCellRenderers :: CellViewClass self => self -> IO [CellRenderer]
 cellViewGetCellRenderers self =
   {# call gtk_cell_view_get_cell_renderers #}
     (toCellView self)
   >>= fromGList
   >>= mapM (\elemPtr -> makeNewObject mkCellRenderer (return elemPtr))
-#endif
 
 --------------------
 -- Attributes

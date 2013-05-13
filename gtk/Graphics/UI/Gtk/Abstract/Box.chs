@@ -105,10 +105,8 @@ module Graphics.UI.Gtk.Abstract.Box (
 -- * Methods
   boxPackStart,
   boxPackEnd,
-#if GTK_MAJOR_VERSION < 3
   boxPackStartDefaults,
   boxPackEndDefaults,
-#endif
   boxGetHomogeneous,
   boxSetHomogeneous,
   boxGetSpacing,
@@ -195,11 +193,8 @@ boxPackEnd self child packing padding =
     (fromIntegral padding)
   where (expand, fill) = fromPacking packing
 
-#if GTK_MAJOR_VERSION < 3
 -- | Like 'boxPackStart' but uses the default parameters 'PackRepel' and 0 for
 -- padding.
---
--- Removed in Gtk3
 boxPackStartDefaults :: (BoxClass self, WidgetClass widget) => self
  -> widget -- ^ @widget@ - the 'Widget' to be added to the box.
  -> IO ()
@@ -210,8 +205,6 @@ boxPackStartDefaults self widget =
 
 -- | Like 'boxPackEnd' but uses the default parameters 'PackRepel' and 0 for
 -- padding.
---
--- Removed in Gtk3
 boxPackEndDefaults :: (BoxClass self, WidgetClass widget) => self
  -> widget -- ^ @widget@ - the 'Widget' to be added to the box.
  -> IO ()
@@ -219,7 +212,6 @@ boxPackEndDefaults self widget =
   {# call box_pack_end_defaults #}
     (toBox self)
     (toWidget widget)
-#endif
 
 -- | Sets the homogeneous property,
 -- controlling whether or not all children of the box are given equal space

@@ -79,17 +79,13 @@ module Graphics.UI.Gtk.Multiline.TextTag (
   textTagBackgroundFullHeight,
   textTagBackgroundFullHeightSet,
   textTagBackgroundGdk,
-#if GTK_MAJOR_VERSION < 3
   textTagBackgroundStipple,
   textTagBackgroundStippleSet,
-#endif
   textTagForeground,
   textTagForegroundSet,
   textTagForegroundGdk,
-#if GTK_MAJOR_VERSION < 3
   textTagForegroundStipple,
   textTagForegroundStippleSet,
-#endif
   textTagDirection,
   textTagEditable,
   textTagEditableSet,
@@ -305,10 +301,7 @@ textTagBackgroundGdk =
   newAttrFromBoxedStorableProperty "background-gdk"
   {#call pure unsafe gdk_color_get_type#}
 
-#if GTK_MAJOR_VERSION < 3
 -- | Bitmap to use as a mask when drawing the text background.
---
--- Removed in Gtk3.
 textTagBackgroundStipple :: (TextTagClass self, PixmapClass pixmap) => ReadWriteAttr self Pixmap pixmap
 textTagBackgroundStipple = newAttrFromObjectProperty "background-stipple"
   {# call pure unsafe gdk_pixmap_get_type #}
@@ -316,11 +309,8 @@ textTagBackgroundStipple = newAttrFromObjectProperty "background-stipple"
 -- | Whether this tag affects the background stipple.
 -- 
 -- Default value: @False@
---
--- Removed in Gtk3.
 textTagBackgroundStippleSet :: TextTagClass self => Attr self Bool
 textTagBackgroundStippleSet = newAttrFromBoolProperty "background-stipple-set"
-#endif
 
 -- | Foreground color as a string.
 --
@@ -343,10 +333,7 @@ textTagForegroundGdk =
   newAttrFromBoxedStorableProperty "foreground-gdk"
   {# call pure unsafe gdk_color_get_type #}
 
-#if GTK_MAJOR_VERSION < 3
 -- | Bitmap to use as a mask when drawing the text foreground.
---
--- Removed in Gtk3.
 textTagForegroundStipple :: (TextTagClass self, PixmapClass pixmap) => ReadWriteAttr self Pixmap pixmap
 textTagForegroundStipple = newAttrFromObjectProperty "foreground-stipple"
   {# call pure unsafe gdk_pixmap_get_type #}
@@ -354,11 +341,8 @@ textTagForegroundStipple = newAttrFromObjectProperty "foreground-stipple"
 -- | Whether this tag affects the foreground stipple.
 -- 
 -- Default value: @False@
---
--- Removed in Gtk3.
 textTagForegroundStippleSet :: TextTagClass self => Attr self Bool
 textTagForegroundStippleSet = newAttrFromBoolProperty "foreground-stipple-set"
-#endif
 
 -- | Text direction, e.g. right-to-left or left-to-right.
 --

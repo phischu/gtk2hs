@@ -28,9 +28,6 @@
 -- Portability : portable (depends on GHC)
 --
 -- Pixmaps -- Offscreen drawables 
---
--- This module is empty when built with Gtk3 because Pixmap has been
--- removed.
 module Graphics.UI.Gtk.Gdk.Pixmap (
 -- * Detail
 -- Pixmaps are offscreen drawables. They can be drawn upon with the
@@ -44,17 +41,13 @@ module Graphics.UI.Gtk.Gdk.Pixmap (
 -- |   +----'Drawable'
 -- |         +----Pixmap
 -- @
-#if GTK_MAJOR_VERSION < 3
 -- * Types
   Pixmap, PixmapClass, 
   Bitmap,
 
 -- * Constructors
   pixmapNew
-#endif
   ) where
-
-#if GTK_MAJOR_VERSION < 3
 
 import Data.Maybe
 import System.Glib.FFI
@@ -109,4 +102,3 @@ pixmapNew mbDrawWindow width height depth =
       (fromIntegral $ fromMaybe (negate 1) depth)
 #endif
 
-#endif /* GTK_MAJOR_VERSION < 3 */

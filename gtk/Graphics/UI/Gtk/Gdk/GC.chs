@@ -38,10 +38,7 @@ module Graphics.UI.Gtk.Gdk.GC (
 -- Most values of a graphics context can be set at creation time by using
 -- 'gcNewWithValues'. A few of the values in the GC, such as the dash
 -- pattern, can only be set by the latter method.
---
--- Graphics Contexts are removed in Gtk3, so this module is empty.
 
-#if GTK_MAJOR_VERSION < 3
   GC,
   GCClass,
   castToGC, gTypeGC,
@@ -78,10 +75,8 @@ module Graphics.UI.Gtk.Gdk.GC (
   gcSetClipRectangle,
   gcSetClipRegion,
   gcSetDashes
-#endif
   ) where
 
-#if GTK_MAJOR_VERSION < 3
 import Control.Monad	(when)
 import Data.Maybe	(fromJust, isJust)
 import Control.Exception (handle, ErrorCall(..))
@@ -174,4 +169,3 @@ gcSetDashes gc phase onOffList = do
   withArray onOff $ \aPtr ->
     {#call unsafe gc_set_dashes#} gc (fromIntegral phase) aPtr
     (fromIntegral (length onOff))
-#endif

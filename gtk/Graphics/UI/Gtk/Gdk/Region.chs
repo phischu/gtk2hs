@@ -32,11 +32,7 @@
 --
 -- * Regions consist of a set of non-overlapping rectangles. They are used to
 --   specify the area of a window which needs updating.
---
--- This module is empty when built with Gtk3 because Pixmap has been
--- removed.
 module Graphics.UI.Gtk.Gdk.Region (
-#if GTK_MAJOR_VERSION < 3
   makeNewRegion,
   Region(Region),
   regionNew,
@@ -58,10 +54,7 @@ module Graphics.UI.Gtk.Gdk.Region (
   regionUnion,
   regionSubtract,
   regionXor
-#endif
   ) where
-
-#if GTK_MAJOR_VERSION < 3
 
 import Control.Monad	(liftM)
 
@@ -224,4 +217,3 @@ regionSubtract reg1 reg2 = {#call unsafe region_subtract#} reg1 reg2
 regionXor :: Region -> Region -> IO ()
 regionXor reg1 reg2 = {#call unsafe region_xor#} reg1 reg2
 
-#endif

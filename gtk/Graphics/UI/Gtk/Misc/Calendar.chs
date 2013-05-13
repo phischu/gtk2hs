@@ -70,20 +70,16 @@ module Graphics.UI.Gtk.Misc.Calendar (
   calendarMarkDay,
   calendarUnmarkDay,
   calendarClearMarks,
-#if GTK_MAJOR_VERSION < 3
 #ifndef DISABLE_DEPRECATED
   calendarDisplayOptions,
-#endif
 #endif
 #if GTK_CHECK_VERSION(2,4,0)
   calendarSetDisplayOptions,
   calendarGetDisplayOptions,
 #endif
   calendarGetDate,
-#if GTK_MAJOR_VERSION < 3
 #ifndef DISABLE_DEPRECATED
   calendarFreeze,
-#endif
 #endif
 
 -- * Attributes
@@ -221,22 +217,18 @@ calendarGetDisplayOptions self =
     (toCalendar self)
 #endif
 
-#if GTK_MAJOR_VERSION < 3
 #ifndef DISABLE_DEPRECATED
 -- | Sets display options (whether to display the heading and the month
 -- headings).
 --
 -- * Warning: this function is deprecated and should not be used in
 -- newly-written code. Use 'calendarSetDisplayOptions' instead.
---
--- Removed in Gtk3.
 calendarDisplayOptions :: CalendarClass self => self
  -> [CalendarDisplayOptions] -> IO ()
 calendarDisplayOptions self flags =
   {# call calendar_display_options #}
     (toCalendar self)
     ((fromIntegral . fromFlags) flags)
-#endif
 #endif
 
 -- | Retrieve the currently selected date.
@@ -257,15 +249,12 @@ calendarGetDate self =
   day   <- liftM fromIntegral $ peek dayPtr
   return (year,month,day)
 
-#if GTK_MAJOR_VERSION < 3
 #ifndef DISABLE_DEPRECATED
 -- | Does nothing. Previously locked the display of the calendar for several
 -- update operations.
 --
 -- * Warning: this function is deprecated and should not be used in
 -- newly-written code.
---
--- Removed in Gtk3.
 calendarFreeze :: CalendarClass self => self
  -> IO a -- ^ An action that performs several update operations on the
          -- calendar. After the action finnishes all the changes made by it
@@ -276,7 +265,6 @@ calendarFreeze self update = do
   res <- update
   {# call calendar_thaw #} (toCalendar self)
   return res
-#endif
 #endif
 
 --------------------

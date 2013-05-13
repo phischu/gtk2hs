@@ -65,9 +65,7 @@ module Graphics.UI.Gtk.MenuComboToolbar.MenuToolButton (
 -- * Methods
   menuToolButtonSetMenu,
   menuToolButtonGetMenu,
-#if GTK_MAJOR_VERSION < 3
   menuToolButtonSetArrowTooltip,
-#endif
 #if GTK_CHECK_VERSION(2,12,0)
   menuToolButtonSetArrowTooltipText,
   menuToolButtonSetArrowTooltipMarkup,
@@ -152,7 +150,6 @@ menuToolButtonGetMenu self =
   {# call gtk_menu_tool_button_get_menu #}
     (toMenuToolButton self)
 
-#if GTK_MAJOR_VERSION < 3
 -- | Sets the 'Tooltips' object to be used for arrow button which pops up the
 -- menu. See 'Graphics.UI.Gtk.MenuComboToolbar.ToolItem.toolItemSetTooltip'
 -- for setting a tooltip on the whole 'MenuToolButton'.
@@ -170,7 +167,6 @@ menuToolButtonSetArrowTooltip self tooltips tipText tipPrivate =
     tooltips
     tipTextPtr
     tipPrivatePtr
-#endif
 
 #if GTK_CHECK_VERSION(2,12,0)
 -- | Sets the tooltip text to be used as tooltip for the arrow button which
